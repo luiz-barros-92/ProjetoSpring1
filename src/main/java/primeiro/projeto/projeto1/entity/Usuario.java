@@ -14,7 +14,17 @@ public class Usuario {
 	
 	@ManyToMany
 	private Set<Perfis> perfis;
+		
+	public Usuario() {
+		
+	}	
 	
+	public Usuario(String nome, String email) {
+		super();
+		this.nome = nome;
+		this.email = email;
+	}
+
 	public Long getId() {
 		return id;
 	}
