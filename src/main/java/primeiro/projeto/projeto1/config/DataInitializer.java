@@ -25,9 +25,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 			createUser("João", "joao@john.com");
 			createUser("Luiz", "luiz@ludwig.org");
 		
-			}
-		
-		repositorioDeUsuario.deleteById(253L);
+			}		
+		Usuario usuario = repositorioDeUsuario.findByEmail("luiz@ludwig.org");
+		System.out.println(usuario.getNome());
 		
 		}
 	
