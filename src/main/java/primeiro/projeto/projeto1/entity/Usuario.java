@@ -1,7 +1,6 @@
 package primeiro.projeto.projeto1.entity;
 
 import jakarta.persistence.*;
-import java.util.*;
 
 @Entity
 public class Usuario {
@@ -12,8 +11,8 @@ public class Usuario {
 	private String nome;
 	private String email;
 	
-	@ManyToMany
-	private Set<Perfis> perfis;
+	@ManyToOne
+	private Perfis perfis;
 		
 	public Usuario() {
 		
@@ -43,12 +42,15 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Set<Perfis> getPerfis() {
+
+	public Perfis getPerfis() {
 		return perfis;
 	}
-	public void setPerfis(Set<Perfis> perfis) {
+
+	public void setPerfis(Perfis perfis) {
 		this.perfis = perfis;
-	}	
+	}
+	
 	
 	
 }

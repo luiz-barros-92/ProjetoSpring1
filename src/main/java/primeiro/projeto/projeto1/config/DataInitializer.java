@@ -1,44 +1,49 @@
 package primeiro.projeto.projeto1.config;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+
+import primeiro.projeto.projeto1.entity.Perfis;
 import primeiro.projeto.projeto1.entity.Usuario;
+import primeiro.projeto.projeto1.repository.RepositorioDePerfis;
 import primeiro.projeto.projeto1.repository.RepositorioDeUsuario;
 
 @Component
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent>{
 	
 	@Autowired
+	RepositorioDePerfis repositorioDePerfis;
+	@Autowired
 	RepositorioDeUsuario repositorioDeUsuario;
 	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		
-		List<Usuario> usuarios = repositorioDeUsuario.findAll();
+		Perfis perfis = new Perfis();
+		perfis.setNome("Admin");
 		
-		if (usuarios.isEmpty()) {
-				
-			createUser("Teste1", "teste1@testador.org");
-			createUser("João", "joao@john.com");
-			createUser("Luiz", "luiz@ludwig.org");
+		Perfis perfis2 = new Perfis();
+		perfis2.setNome("Aluno");
 		
-			}		
-		Usuario usuario = repositorioDeUsuario.findByEmail("luiz@ludwig.org");
-		System.out.println(usuario.getNome());
+		this.repositorioDePerfis.save(perfis);
+		this.repositorioDePerfis.save(perfis2);
 		
-		}
-	
-	public void createUser(String nome, String email) {
+		Usuario usuario = new Usuario();		
+		usuario.setNome("Luiz");
+		usuario.setEmail("luiz@barros.io");
+		usuario.setPerfis(perfis);
 		
-		Usuario usuario = new Usuario(nome, email);
+		Usuario usuario2 = new Usuario();
+		usuario2.setNome("Dreadnought");
+		usuario2.setEmail("dreadnought@ships.com");
+		usuario2.setPerfis(perfis);
 		
-		repositorioDeUsuario.save(usuario);
-	}
-
+		this.repositorioDeUsuario.save(usuario);
+		this.repositorioDeUsuario.save(usuario2);
 		
+		}		
 	}
 
 
